@@ -4,25 +4,35 @@
 <!DOCTYPE html>
 <html>
 <head>
-<meta charset="EUC-KR">
+<meta charset="UTF-8">
 <title>Insert title here</title>
 </head>
 <body>
-	<table>
+<h2><a href='/board/register'>게시물등록</a></h2>
+	<table border="1">
 	<tr>
 	<td>BNO</td>
 	<td>TITLE</td>
 	<td>WRITER</td>
-	<td> REGDAET</td>
+	<td> REGDATE</td>
 	</tr>
 	<c:forEach items = "${list}" var = "vo">
 	<tr>
-		<td><c:out value="${bno}"/></td>
-		<td><c:out value="${content}"/></td>
-		<td><c:out value="${writer}"/></td>
-		<td><c:out value="${regdate}"/></td>
+		<td><c:out value="${vo.bno}"/></td>
+		<td><c:out value="${vo.content}"/></td>
+		<td><c:out value="${vo.writer}"/></td>
+		<td><c:out value="${vo.regdate}"/></td>
 	</tr>
 	</c:forEach>
 	</table>
+	<script>
+	
+	var flag = '${result}';
+	
+	if(flag === 'success'){
+		alert("작업이 뭐시기");
+	}
+	
+	</script>
 </body>
 </html>
