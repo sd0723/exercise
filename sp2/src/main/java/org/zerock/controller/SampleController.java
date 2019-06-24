@@ -2,17 +2,16 @@ package org.zerock.controller;
 
 
 
-import java.text.SimpleDateFormat;
 import java.util.Arrays;
 
-import org.springframework.beans.propertyeditors.CustomDateEditor;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.WebDataBinder;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.InitBinder;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import org.zerock.domain.SampleDTO;
 import org.zerock.domain.SampleDTOList;
 import org.zerock.domain.TodoDTO;
@@ -26,10 +25,37 @@ public class SampleController {
 //	
 //	@InitBinder
 //	public void initBinder(WebDataBinder binder) {
-//		SimpleDateFormat df = new SimpleDateFormat("yyyy-mm-dd");
+//		SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd");
 //		binder.registerCustomEditor(java.util.Date.class, new CustomDateEditor(df,false));
 //		
 //	}
+	
+	@GetMapping("/ex5")
+	public String ex5(RedirectAttributes rttr) {
+		log.info("ex5-----------------");
+		rttr.addFlashAttribute("result", "SUCCESS");
+		
+		return "redirect:/sample/ex6";
+	}
+	
+	@GetMapping("/ex6")
+	public void ex6() {
+		log.info("ex6....................");
+		
+	}
+	
+	@GetMapping("/ex4")
+	public String ex4(SampleDTO dto,@ModelAttribute("page") int page,Model model) {
+		
+		
+		log.info("ex4...........................");
+		log.info(dto);
+		log.info(page);
+		
+		model.addAttribute("result","SUCESS");
+		
+		return "/sample/ex4";
+	}
 	
 	@GetMapping("/ex3")
 	public void ex3(TodoDTO todo) {
