@@ -1,5 +1,9 @@
 package org.zerock.service;
 
+import java.util.List;
+
+import org.zerock.domain.Criteria;
+
 public interface GenericService<VO, K> {
 	
 	public void register(VO vo);
@@ -9,4 +13,6 @@ public interface GenericService<VO, K> {
 	public int modify(VO vo);
 	
 	public int remove(K key);
+	
+	public List<VO> getList(Criteria cri);
 }

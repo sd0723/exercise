@@ -42,7 +42,7 @@
               <button class="btn btn-primary">
 				<a href ="/board/modify?bno=${vo.bno}">Modify/Delete</a>
 			</button> 
-			<a href="/board/list" class="btn btn-secondary">
+			<a href="/board/list${cri.getLink()}" class="btn btn-secondary">
        			 Go to List
                 </a>
               <hr>		
