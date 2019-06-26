@@ -15,6 +15,11 @@
             </div>
             <div class="card-body">
                   <form id='form1' >
+                  
+                    <input type="hidden" name="bno" value="${cri.bno}">
+        			<input type="hidden" name="page" value="${cri.page}">
+        			<input type="hidden" name="amount" value="${cri.amount}">
+                  
                   <div class="form-group">
                   <input type="text" name="bno" 
                   class="form-control form-control-user" 
@@ -40,11 +45,10 @@
               
             <button class="btn btn-info" >Delete</button> 
             <button class="btn btn-success" >Modify</button> 
-            
-			<a href="/board/list" class="btn btn-secondary">
-       			 Go to List
-                </a>
-              <hr>			
+            	
+              <a href="/board/list${cri.getLink()}" class="btn btn-secondary">
+  			 Go to List
+           </a>		
         </div>
         </div>
         <!-- /.container-fluid -->
@@ -68,7 +72,7 @@
 				 	.attr("method","post")
 				 	.submit();
 			});
-
+			
 		</script>
 <%@include file="../includes/footer.jsp"%>
 

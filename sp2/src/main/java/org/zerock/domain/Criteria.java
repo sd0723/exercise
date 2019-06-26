@@ -9,8 +9,12 @@ import lombok.ToString;
 @ToString
 public class Criteria {
 	
+
 	private int page;
 	private int amount;
+	private Integer bno;
+	private String type;
+	private String keyword;
 	
 	public Criteria() {
 		this.page = 1;
@@ -35,5 +39,17 @@ public class Criteria {
 				.queryParam("page", page)
 				.queryParam("amount", amount);
 		return builder.toUriString();
+	}
+
+	public void setBno(Integer bno) {
+		this.bno = bno;
+	}
+
+	public void setType(String type) {
+		this.type = type;
+	}
+
+	public void setKeyword(String keyword) {
+		this.keyword = keyword;
 	}
 }

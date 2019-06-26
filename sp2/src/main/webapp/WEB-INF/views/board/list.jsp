@@ -13,24 +13,24 @@
             <div class="card-header py-3">
               <h6 class="m-0 font-weight-bold text-primary">DataTables Example</h6>
               <select class = "opt">
-              <option value="10" ${pm.cri.amount == 10?"selected":""}>10</option>
-               <option value="20"${pm.cri.amount == 20?"selected":""}>20</option>
-                <option value="50"${pm.cri.amount == 50?"selected":""}>50</option>
+              <option value="10" ${cri.amount == 10?"selected":""}>10</option>
+               <option value="20"${cri.amount == 20?"selected":""}>20</option>
+                <option value="50"${cri.amount == 50?"selected":""}>50</option>
               </select>
             </div>
             <div class="card-body">
-              <div class="table-responsive border-bottom-info" >
-              <table>
-					<tr class="cell border-bottom-info">
+              <div class="table-responsive" >
+              <table border ="1" width="1000">
+					<tr class="cell border-bottom-primary" align="center">
 					<td>BNO</td>
 					<td>TITLE</td>
 					<td>WRITER</td>
 					<td> REGDATE</td>
 					</tr>
 					<c:forEach items = "${list}" var = "vo">
-					<tr class="cell border-bottom-info">
+					<tr class="cell border-bottom-info" align="center">
 						<td><c:out value="${vo.bno}"/></td>
-						<td><a href='${pm.getLink("/board/read",pm.current)}&bno=${vo.bno}'><c:out value="${vo.title}"/></a></td>
+						<td><a href='${vo.bno}' class="view"><c:out value="${vo.title}"/></a></td>
 						<td><c:out value="${vo.writer}"/></td>
 						<td><c:out value="${vo.regdate}"/></td>
 					</tr>
@@ -39,17 +39,17 @@
 			
 	<ul class="pagination">
 	<c:if test="${pm.prev}">
-	    <li class="page-item"><a class="page-link" href='${pm.getLink("/board/list",pm.getStart()-1)}'>Previous</a></li>
+	    <li class="page-item"><a class="page-link" href='${pm.start -1}'>Previous</a></li>
 	</c:if>   
 	
 	
 	<c:forEach begin="${pm.start}" end="${pm.end}" var="idx">
-	    <li class="page-item"><a class="page-link" href='${pm.getLink("/board/list",idx)}'>${idx}</a></li>
+	    <li class="page-item"><a class="page-link" href='${idx}'>${idx}</a></li>
 	    </c:forEach>
 	    
 	    
    <c:if test="${pm.next}">
-	    <li class="page-item"><a class="page-link" href='${pm.getLink("/board/list",pm.getEnd()+1)}'>Next</a></li>
+	    <li class="page-item"><a class="page-link" href='${pm.end +1}'>Next</a></li>
 	</c:if>
 	</ul>
 	  
@@ -57,6 +57,11 @@
         </div>
         </div>
         <!-- /.container-fluid -->
+        <form id = "actionForm" action ='/board/list' method="get">
+        <input type="hidden" name="page" value="${cri.page}">
+        <input type="hidden" name="amount" value="${cri.amount}">
+        </form>
+        
         <script>
 	
 			var flag = '${result}';
@@ -64,9 +69,34 @@
 			if(flag === 'success'){
 				alert("작업이 뭐시기");
 			}
+			
+			var actionForm = $("#actionForm");
+			
+			$(".page-link").on("click",function(e){
+				e.preventDefault();
+				var targetPage = $(this).attr("href");
+				console.log("targetPage : "+targetPage);
+				actionForm.find("input[name = 'page']").val(targetPage);
+				actionForm.submit();
+			});
+			
+		$(".view").on("click",function(e){
+			
+			
+			e.preventDefault();
+			var targetBno = $(this).attr("href");
+			actionForm.attr("action","/board/read");
+			actionForm.append("<input type='hidden' name='bno' value="+targetBno+">");
+			actionForm.submit();
+			
+		});
+		
 		$('.opt').on("change",function(e){
+			
 			var amountValue =this.value;
-			self.location="/board/list?page=1&amount="+amountValue;
+			actionForm.find("input[name = 'page']").val(1);
+			actionForm.find("input[name = 'amount']").val(amountValue);
+			actionForm.submit();
 		});
 			
 			

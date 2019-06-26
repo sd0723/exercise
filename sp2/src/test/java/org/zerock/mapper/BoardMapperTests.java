@@ -1,5 +1,8 @@
 package org.zerock.mapper;
 
+import java.util.HashMap;
+import java.util.Map;
+
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,6 +21,15 @@ public class BoardMapperTests {
 	
 	@Autowired
 	BoardMapper mapper;
+	
+	@Test
+	public void testSearch() {
+		Map<String, String> map = new HashMap<>();
+		map.put("T","샘플");
+		map.put("C","샘플");
+		map.put("W","샘플");
+		mapper.search(map);
+	}
 	
 	@Test
 	public void testpageMaker() {
