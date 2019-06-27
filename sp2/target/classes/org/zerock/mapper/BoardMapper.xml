@@ -6,6 +6,26 @@
  
   <mapper namespace="org.zerock.mapper.BoardMapper">
 
+	<sql id="searchCri">
+		<if test="map != null">
+			<where>
+				<foreach index="key" item="val" collection="map">
+					<trim prefix="OR">
+						<if test="key == 'T'.toString()">
+						Title like concat('%',#{val},'%')
+						</if>
+						<if test="key == 'C'.toString()">
+						 Content like concat('%',#{val},'%')
+						</if>
+						<if test="key == 'W'.toString()">
+						 Writer like concat('%',#{val},'%')
+						</if>
+					</trim>	
+				</foreach>
+			</where>
+		</if>
+	</sql>
+
 	<insert id="insert">
 	insert into tbl_board(title,content,writer)
 	values (#{title},#{content},#{writer})
@@ -16,7 +36,9 @@
 	</select>
 	
 	<select id="selectPage" resultType="BoardVO">
-	select * from tbl_board where bno>0 order by bno desc limit #{skip},#{amount}
+		select * from tbl_board 
+		<include refid="searchCri"></include>
+		order by bno desc limit #{skip},#{amount}
 	</select>
 	
 	<update id="update">
@@ -25,7 +47,8 @@
 	</update>
 	
 	<select id="selectPageCount" resultType="int">
-	select count(bno) from tbl_board where bno>0
+	select count(bno) from tbl_board 
+	<include refid="searchCri"></include>
 	</select>
 	
 	<select id="search" resultType="BoardVO">

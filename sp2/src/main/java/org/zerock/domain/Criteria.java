@@ -1,5 +1,9 @@
 package org.zerock.domain;
 
+import java.util.Arrays;
+import java.util.HashMap;
+import java.util.Map;
+
 import org.springframework.web.util.UriComponentsBuilder;
 
 import lombok.Getter;
@@ -20,7 +24,26 @@ public class Criteria {
 		this.page = 1;
 		this.amount = 10;
 	}
-
+	
+	public Map<String,String> getMap(){
+		
+		if(type == null||type.trim().length()==0) {
+			return null;
+		}
+		
+		//T따로 C따로 W따로
+		String[] arr = type.split("");
+		
+		//log.info(Arrays.toString(arr));
+		
+		Map<String, String> map = new HashMap<>();
+		for (String word : arr) {
+			map.put(word, keyword);
+		}
+		//log.info(map);
+		return map;
+	}
+	
 	public void setPage(int page) {
 		this.page = page<=0?1:page;
 	}
@@ -37,7 +60,9 @@ public class Criteria {
 	public String getLink() {
 		UriComponentsBuilder builder = UriComponentsBuilder.fromPath("")
 				.queryParam("page", page)
-				.queryParam("amount", amount);
+				.queryParam("amount", amount)
+				.queryParam("type",type)
+				.queryParam("keyword", keyword);
 		return builder.toUriString();
 	}
 

@@ -56,6 +56,8 @@
         <input type="hidden" name="bno" value="${cri.bno}">
         <input type="hidden" name="page" value="${cri.page}">
         <input type="hidden" name="amount" value="${cri.amount}">
+        <input type="hidden" name="type" value="${cri.type}">
+       <input type="hidden" name="keyword" value="${cri.keyword}">
         </form>
         <script>
         	
