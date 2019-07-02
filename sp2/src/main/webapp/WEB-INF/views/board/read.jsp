@@ -82,14 +82,15 @@
                     </div>
                     <div class="modal-body" >
                         <input type="text" class="form-control mbno" name="bno" value="${vo.bno}" readonly="readonly">
+                        <input type="text" class="form-control mrno" name="rno" value="" readonly="readonly">
                         <input type="text" class="form-control" name ="reply" value ="샘플댓글"></input>
                         <input type="text" class="form-control" name ="replyer" value ="룰루랄라"></input>
                     </div>
                     <div class="modal-footer">
-                        <button class="btn btn-warning" type="button" data-dismiss="modal">Cancel</button>
-                        <button class="btn btn-primary replyBtn" >ADD REPLY</button>
-                        <button class="btn btn-info modifyBtn" >MODIFY REPLY</button>
-                        <button class="btn btn-secondary deleteBtn" >DELETE REPLY</button>
+                        <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
+                        <button class="btn btn-success replyBtn" >ADD REPLY</button>
+                        <button class="btn btn-warning modifyBtn hide" >MODIFY REPLY</button>
+                        <button class="btn btn-danger deleteBtn hide" >DELETE REPLY</button>
                         
                     </div>
                 </div>
@@ -117,7 +118,7 @@
         		var rno = $(this).attr("data-rno")
         		replyService.getReply(rno,function(reply){
         			
-        			$(".mbno").val(reply.rno);
+        			$(".mrno").val(reply.rno);
         			$("input[name='reply']").val(reply.reply);
  			        $("input[name='replyer']").val(reply.replyer);
  			        
@@ -161,7 +162,15 @@
 						showPage()
 			        });
 			    });
-			    
+			    $(".deleteBtn").on("click",function(){
+			    	var rno = $("input[name='rno']").val();
+			    	
+			    	replyService.removeReply(rno,function(){
+			    		alert("remove......");
+			    		$("#replyModal").modal('hide')
+			    		showPage();
+			    	})
+			    });
 			 function showPage(){
 
 			        replyList.html("")

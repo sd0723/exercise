@@ -12,7 +12,7 @@
 		 <div class="card shadow mb-4">
             <div class="card-header py-3">
               <h6 class="m-0 font-weight-bold text-primary">DataTables Example</h6>
-               <select name="typeView">
+               <select name="typeView" >
                <option>--</option>
         	<option value="T" ${cri.type == 'T'?"selected":""}>제목</option>
         	<option value="C" ${cri.type == 'C'?"selected":""}>내용</option>
@@ -20,7 +20,7 @@
         	<option value="TC" ${cri.type == 'TC'?"selected":""}>제목+내용</option>
         </select>
         <input type="text" name="keywordView" value ="${cri.keyword}">
-        	<button class = "btn btn-primary searchBtn">Search
+        	<button class = "btn btn-primary btn-sm searchBtn">Search
         	<i class="fas fa-search fa-sm"></i>
         	</button>
         	
